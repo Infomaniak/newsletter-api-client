@@ -1,10 +1,10 @@
-![infomaniak's logo](https://www.infomaniak.com/img/common/logo_infomaniak.jpg) infomaniak
+![infomaniak's logo](https://www.infomaniak.com/img/common/logo_infomaniak.jpg) newsletter-api-client
 =======================================================
 
 Introduction
 ------------
 
-infomaniak/newsletter-api-client is a php wrapper for newsletter's Infomaniak. Use it to create or update campaigns, mailinglists, contacts...
+infomaniak/newsletter-api-client is a php wrapper for newsletters' Infomaniak. Use it to create or update campaigns, mailinglists, contacts...
 
 Full documentation can be found on the website:
 
