@@ -17,8 +17,3 @@ Build status
 | branch       | status | minimum PHP version |
 | ------------ | ------ | ------------------- |
 | master       |   OK   | PHP 5.6 |
-
-Documentation
--------------
-
-* [Introduction](https://newsletter.infomaniak.com/docs/index.html).
