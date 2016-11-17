@@ -1,0 +1,41 @@
+{
+    "name": "infomaniak/client-api-newsletter",
+    "type": "project",
+    "description": "PHP wrapper for API newsletter",
+    "keywords": ["library"],
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Infomaniak Network SA",
+            "email": "dev@infomaniak.ch",
+            "homepage": "https://www.infomaniak.ch/"
+        },
+        {
+            "name": "Cedric Aguettaz",
+            "email": "cedric.aguettaz@infomaniak.ch"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.dev.infomaniak.ch"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.0",
+        "guzzlehttp/guzzle": "~6.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Infomaniak\\ClientApiNewsletter\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Infomaniak\\ClientApiNewsletter\\Tests\\": "tests/"
+        }
+    }
+}
