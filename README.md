@@ -11,6 +11,15 @@ Full documentation can be found on the website:
 https://newsletter.infomaniak.com/docs/index.html
 
 
+Installation
+------------
+
+You can install newsletter-api-client using Composer:
+
+```
+composer require infomaniak/client-api-newsletter
+```
+
 Build status
 ------------
 
