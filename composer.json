@@ -1,8 +1,8 @@
 {
     "name": "infomaniak/client-api-newsletter",
     "type": "project",
-    "description": "PHP wrapper for API newsletter",
-    "keywords": ["library"],
+    "description": "PHP wrapper for API Infomaniak Newsletter",
+    "keywords": ["library", "infomaniak", "newsletter", "mailing", "mail"],
     "license": "proprietary",
     "authors": [
         {
