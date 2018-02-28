@@ -18,6 +18,7 @@
         const CONTACT       = "contact";
         const CAMPAIGN      = "campaign";
         const TASK          = "task";
+        const CREDIT        = "credit";
 
         /**
          * Client constructor.
