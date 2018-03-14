@@ -19,6 +19,10 @@ You can install newsletter-api-client using Composer:
 ```
 composer require infomaniak/client-api-newsletter
 ```
+Or download the zip file, unzip and run in the root folder :
+```
+composer install
+```
 
 Build status
 ------------
