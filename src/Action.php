@@ -15,6 +15,7 @@
         const UNSCHEDULE    = "unschedule";
         const SEND          = "send";
         const TEST          = "test";
+        const STATISTICS    = "statistics";
 
         const DELETE        = "delete";
         const UNSUBSCRIBE   = "unsub";
