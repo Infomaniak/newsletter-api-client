@@ -48,8 +48,10 @@
             $uri = $this->_buildURL($resource, $args);
 
             $options = [];
-            if (array_key_exists('params', $args))
-                $options = ['json' => $args['params']];
+            if (array_key_exists('params', $args)) {
+                $g = ($method == 'GET') ? 'query' : 'json';
+                $options = [$g => $args['params']];
+            }
 
             try {
                 $response = $this->client->request($method, $uri, $options);
