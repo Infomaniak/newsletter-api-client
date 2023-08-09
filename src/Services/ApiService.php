@@ -3,99 +3,86 @@
 namespace Infomaniak\ClientApiNewsletter\Services;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
 
-class ApiService{
-    private static $endpoint;
-
-    private static $urlV1 = 'https://newsletter.infomaniak.com/api/v1/public/';
-
-    private static $urlV3 = 'https://api.infomaniak.com/v3/api/1/newsletter/';
+class ApiService
+{
+    static $endpoint = '';
 
     /**
      * @var Client $client
      */
-    private $client;
+    public Client $client;
 
-    private $version;
-
-    public function __construct( $key, $secret = '', $version = 'v3')
+    public function __construct($client)
     {
-        $credentials = base64_encode($key . ':' . $secret);
-        $url = 'url' . strtoupper($version);
-        $config = [
-            'base_uri' => self::$$url,
-            'headers' => [
-                'Authorization' => $version == 'v3' ? 'Bearer ' . $credentials : 'Basic ' . $credentials,
-            ]
-        ];
-        $this->client = new Client($config);
-        $this->version = $version;
+        $this->client = $client;
     }
 
-    private function _endpoint()
+    public function get($id = null)
     {
-        $variableName = 'endpoint' . strtoupper($this->version);
-        return static::$$variableName;
-    }
-
-    /**
-     * Get all campaigns
-     * @return string
-     */
-    public function all()
-    {
-        $response = $this->client->get($this->_endpoint());
-
+        $id = $id ?? $this->id;
+        $url = static::$endpoint . '/' . $id;
+        $response = $this->client->get($url);
         return $this->parseResponse($response);
     }
 
-    /**
-     * Get a campaign
-     * @param string $id
-     * @return Response
-     */
-    public function get($id)
-    {
-        return $this->client->get(static::$endpoint . '/' . $id);
-    }
-
-    /**
-     * Create a campaign
-     * @param array $data
-     * @return Response
-     */
     public function create($data)
     {
-        return $this->client->post(static::$endpoint, $data);
+        try{
+        $response = $this->client->post(static::$endpoint, [
+            'json' => $data
+        ]);
+        return $this->parseResponse($response);
+        }catch(\GuzzleHttp\Exception\GuzzleException $e){
+            return $this->parseError($e);
+        }
     }
 
-    /**
-     * Update a campaign
-     * @param string $id
-     * @param array $data
-     * @return Response
-     */
-    public function update($id, $data)
+    public function update($id = null, $data = [])
     {
-        return $this->client->put(static::$endpoint . '/' . $id, $data);
+        $id = $id ?? $this->id;
+        if (!$id) {
+            throw new \Exception('No id provided');
+        }
+        $response = $this->client->put(static::$endpoint . '/' . $id, [
+            'json' => $data
+        ]);
+        return $this->parseResponse($response);
     }
 
-    /**
-     * Delete a campaign
-     * @param string $id
-     * @return Response
-     */
-    public function delete($id)
+    public function delete($id = null)
     {
-        return $this->client->delete(static::$endpoint . '/' . $id);
+        $id = $id ?? $this->id;
+        if (!$id) {
+            throw new \Exception('No id provided');
+        }
+        $response = $this->client->delete(static::$endpoint . '/' . $id);
+        return $this->parseResponse($response);
     }
 
-
-    private function parseResponse($response)
+    public function parseResponse(ResponseInterface $response)
     {
-        $body = $response->getBody()->getContents();
-        return json_decode($body, true);
+        $body = $response->getBody();
+        $contents = $body->getContents();
+        return json_decode($contents);
     }
 
+    public function parseError($e)
+    {
+        $code = $e->getCode();
+        $response = ($e->getResponse()->getBody()->getContents());
+        return json_decode($response);
+    }
+
+    public function protectedPost($endpoint, $data) {
+        try{
+            $response = $this->client->post($endpoint, [
+                'json' => $data
+            ]);
+            return $this->parseResponse($response);
+        }catch(\GuzzleHttp\Exception\GuzzleException $e){
+            return $this->parseError($e);
+        }
+    }
 }
