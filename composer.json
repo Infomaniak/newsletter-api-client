@@ -15,12 +15,6 @@
             "email": "cedric.aguettaz@infomaniak.ch"
         }
     ],
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://packages.dev.infomaniak.ch"
-        }
-    ],
     "require": {
         "php": ">=7.4",
         "guzzlehttp/guzzle": "~7.0",
