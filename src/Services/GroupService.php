@@ -26,14 +26,65 @@ class GroupService extends ApiService
          * @return mixed
          * @throws Exception
          */
-        public function addContact($data = null, $groupId = null) {
+        public function addContacts(array $data, int $groupId = null) {
             $id = $groupId ?? $this->id;
             if (!$id) {
                 throw new \Exception('No id provided');
             }
-            $url = static::$endpoint . '/' . $id . '/importcontact';
             return $this->protectedPost(static::$endpoint . '/' . $id . '/importcontact', [
                     'contacts' => $data
             ]);
         }
+
+    /**
+     * @param string $data
+     * @param int|null $groupId
+     * @return mixed
+     * @throws Exception
+     */
+    public function subscribeEmail(string $email, int $groupId = null) {
+        $id = $groupId ?? $this->id;
+        if (!$id) {
+            throw new \Exception('No id provided');
+        }
+        return $this->protectedPost(static::$endpoint . '/' . $id . '/importcontact', [
+            'contacts' => [
+                [
+                    'email' => $email
+                ]
+            ]
+        ]);
+    }
+
+        public function deleteEmail($email, $groupId = null) {
+            $id = $groupId ?? $this->id;
+            if (!$id) {
+                throw new \Exception('No id provided');
+            }
+            return $this->protectedPost(static::$endpoint . '/' . $id . '/managecontact', [
+                'email' => $email,
+                'status' => 'delete'
+            ]);
+        }
+
+    public function unsubscribeEmail($email, $groupId = null) {
+        $id = $groupId ?? $this->id;
+        if (!$id) {
+            throw new \Exception('No id provided');
+        }
+        return $this->protectedPost(static::$endpoint . '/' . $id . '/managecontact', [
+            'email' => $email,
+            'status' => 'unsub'
+        ]);
+    }
+
+    public function subscribers(int $page= 1, int $perPage = 10, $groupId = null) {
+        $id = $groupId ?? $this->id;
+        if (!$id) {
+            throw new \Exception('No id provided');
+        }
+        return $this->protectedGet(static::$endpoint . '/' . $id . '/contact'. '?page=' . $page . '&perPage=' . $perPage);
+    }
+
+
 }

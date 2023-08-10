@@ -85,4 +85,13 @@ class ApiService
             return $this->parseError($e);
         }
     }
+
+    public function protectedGet($endpoint) {
+        try{
+            $response = $this->client->get($endpoint);
+            return $this->parseResponse($response);
+        }catch(\GuzzleHttp\Exception\GuzzleException $e){
+            return $this->parseError($e);
+        }
+    }
 }
