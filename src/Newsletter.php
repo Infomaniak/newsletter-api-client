@@ -4,6 +4,8 @@ namespace Infomaniak\ClientApiNewsletter;
 
 use GuzzleHttp\Client;
 use Infomaniak\ClientApiNewsletter\Services\CampaignService;
+use Infomaniak\ClientApiNewsletter\Services\GroupService;
+use Infomaniak\ClientApiNewsletter\Services\SubscriberService;
 
 class Newsletter{
     private static $url = 'https://newsletter.infomaniak.com/api/v1/public/';
@@ -27,6 +29,14 @@ class Newsletter{
 
     public function campaings($id = null){
         return new CampaignService($this->client, $id);
+    }
+
+    public function subscribers($id = null){
+        return new SubscriberService($this->client, $id);
+    }
+
+    public function groups($id = null){
+        return new GroupService($this->client, $id);
     }
 
 }
